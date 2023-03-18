@@ -1,0 +1,6 @@
+name = "my-bucket-s3-kelson"
+env = "dev"
+ec2_name = "my-ec2"
+vpc_name = "my-vpc"
+subnet_name = "my-subnet"
+network_interface_name = "primary_network_interface"
