@@ -29,5 +29,5 @@ variable "product" {
 
 variable "aws_vpc" {
   description = "VPC ID"
-  type        = strings
+  type        = string
 }

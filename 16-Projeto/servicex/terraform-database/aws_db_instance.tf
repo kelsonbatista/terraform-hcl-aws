@@ -4,7 +4,7 @@ resource "aws_db_instance" "default" {
   max-allocated-storage       = var.storage * 5
   db_name                     = var.service
   engine                      = var.engine
-  engine_version              = lookup(local.db_info, var.engine)["engine_version"]
+  engine_version              = lookup(var.db_info, var.engine)["engine_version"]
   instance_class              = lookup(local.instance_class, var.environment)
   username                    = var.db_username
   password                    = var.db_password
@@ -13,8 +13,13 @@ resource "aws_db_instance" "default" {
   copy_tags_to_snapshot       = true
   db_subnet_group_name        = aws_db_subnet_group.db_sg.name
   vpc_security_group_ids      = [aws_security_group.rds.id]
-  domain                      = lookup(local.db_domain_info, "domain")
-  domain_iam_role_name        = lookup(local.db_domain_info, "domain_iam_role_name")
+  domain                      = lookup(db_domain_info, "domain")
+  domain_iam_role_name        = lookup(db_domain_info, "domain_iam_role_name")
+
+  db_domain_info {
+    domain               = var.domain == "" ? null : var.domain
+    domain_iam_role_name = var.domain_iam_role_name == "" ? null : var.domain_iam_role_name
+  }
 
   tags = merge(
     local.common_tags,
