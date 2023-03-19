@@ -18,7 +18,7 @@ module "frontend" {
 
 module "backend" {
   source      = "./terraform-backend"
-  region      = lookup(var.aws_region, local.env)
+  # region      = lookup(var.aws_region, local.env)
   aws_vpc     = module.network.vpc.id
   subnet_ids  = module.network.subnet_public_id
   owner       = local.owner
@@ -30,7 +30,8 @@ module "backend" {
 module "database" {
   source      = "./terraform-database"
   engine      = "postgres"
-  storage     = 10  
+  storage     = 10
+  region      = lookup(var.aws_region, local.env)
   aws_vpc     = module.network.vpc.id
   subnet_ids  = module.network.subnet_public_id
   owner       = local.owner

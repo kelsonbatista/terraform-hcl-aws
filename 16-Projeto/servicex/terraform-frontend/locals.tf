@@ -8,7 +8,7 @@ locals {
   }
 
   sg_elb_rules_egress = {
-    1 = { description = "Access to out instance", protocol = "tcp", from_port = 80, to_port = 80, cidr_blocks = ["0.0.0.0/0"]}
+    1 = { description = "Access to out instance", protocol = "tcp", from_port = "0", to_port ="0", cidr_blocks = ["0.0.0.0/0"]}
   }
 
   security_elb_rules_ingress = [for rule in local.sg_elb_rules_ingress: {
